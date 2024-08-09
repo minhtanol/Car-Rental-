@@ -1,0 +1,10 @@
+.diagonal {
+  position: absolute;
+  top: -1px;
+  left: 55%;
+  width: 2px;
+  height: 120%;
+  transform: rotate(20deg);
+  transform-origin: top left;
+  z-index: 1000;
+}

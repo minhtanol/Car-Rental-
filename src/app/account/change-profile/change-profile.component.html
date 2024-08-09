@@ -1,0 +1,100 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Profile</li>
+    </ol>
+  </div>
+  <h3>My Profile</h3>
+  <div class="border-bottom border-border mb-4">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active text-primary" routerLink="/account/change-profile">Personal Information</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-muted" routerLink="/account/change-password">Security</a>
+      </li>
+    </ul>
+  </div>
+  <form [formGroup]="formLocation" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-6">
+        <label class="form-label" for="fullName">Full Name:</label>
+        <input class="form-control" type="text" id="fullName" formControlName="name" required/>
+      </div>
+      <div class="col-6 mb-5">
+        <label class="form-label" for="dateOfBirth">Date of Birth:</label>
+        <input class="form-control" type="text" id="dateOfBirth" formControlName="dateOfBirth" required bsDatepicker/>
+      </div>
+      <div class="col-6">
+        <label class="form-label" for="phoneNumber">Phone Number <strong>*</strong></label>
+        <input class="form-control" type="text" id="phoneNumber" formControlName="phone" required/>
+      </div>
+
+      <div class="col-6 mb-5">
+        <label class="form-label" for="email">Email <strong>*</strong></label>
+        <input class="form-control" type="email" id="email" formControlName="email" required/>
+      </div>
+      <div class="col-6">
+        <label class="form-label" for="nationalId">National ID No <strong>*</strong></label>
+        <input class="form-control" type="text" id="nationalId" formControlName="nationalId" required/>
+      </div>
+      <div class="col-6 mb-5">
+        <label class="form-label" for="driverLicense">Driver License <strong>*</strong></label>
+        <input class="form-control" type="text" id="driverLicense" formControlName="driverLicense" required/>
+      </div>
+
+      <div class="col-6 mb-5">
+        <div class="row">
+          <div class="form-group col-4">
+            <label for="provinceName" class="form-label">City</label>
+            <select class="form-select" id="provinceName" formControlName="provinceName"
+                    (change)="onProvinceChange($event)">
+              <option value="">City</option>
+              <option *ngFor="let province of provinces" [attr.data-province-code]="province.provinceCode"
+                      [value]="province.provinceName">{{province.provinceName}}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-4">
+            <label for="districtName" class="form-label">District</label>
+            <select class="form-select" id="districtName" formControlName="districtName"
+                    (change)="onDistrictChange($event)">
+              <option value="">District</option>
+              <option *ngFor="let district of districts" [attr.data-district-code]="district.districtCode"
+                      [value]="district.districtName">{{district.districtName}}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-4">
+            <label for="wardName" class="form-label">Ward</label>
+            <select class="form-select" id="wardName" formControlName="wardName">
+              <option value="">Ward</option>
+              <option *ngFor="let ward of wards"
+                      [value]="ward.wardName">{{ward.wardName}}
+              </option>
+            </select>
+          </div>
+          <div class="col-6 mb-5">
+            <label class="form-label" for="street" formControlName="street">Street <strong>*</strong></label>
+            <input class="form-control" type="text" id="street" formControlName="street" required/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+
+    <div class="d-flex justify-content-center mb-5">
+      <button type="button" class="btn btn-light mx-3 px-4" (click)="discard()">Discard</button>
+      <button type="submit" class="btn btn-primary mx-3 px-4">Save</button>
+    </div>
+  </form>
+</div>
+
+<app-footer></app-footer>

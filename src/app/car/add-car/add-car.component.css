@@ -1,0 +1,27 @@
+.border-dashed{
+  border-style: dashed!important;
+}
+
+.file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.thumbnail-container{
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.thumbnail{
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-top: 44%;
+}
+
+mat-icon[fontIcon="cancel"]{
+  z-index: 999;
+}

@@ -1,0 +1,93 @@
+<app-navbar></app-navbar>
+
+
+<div class="container">
+  <div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Library</li>
+    </ol>
+  </div>
+  <div class="row bg-dark text-white p-5">
+    <h6 class="h5 fw-semibold mb-3">Booking Details</h6>
+    <div class="m-5">
+      <p class="">Pick-up location: Trường Kinh, Cầu Giấy, Hà Nội</p>
+      <p class="">Pick-up date and time: 13/03/2023 - 12:00 PM</p>
+      <p class="">Return date and time: 20/03/2023 - 12:00 PM</p>
+    </div>
+  </div>
+  <div class="step-container m-5 p-3">
+    <div class="step step-active">
+      <span class="step-content"><a class="link-underline-light"
+                                    routerLink="/car/add-car/step1">Step 1: Basic</a></span>
+    </div>
+    <div class="step step-inactive">
+      <span class="step-content"><a class="link-underline-light"
+                                    routerLink="/car/add-car/step2">Step 2: Details</a></span>
+    </div>
+
+    <div class="step step-inactive">
+      <span class="step-content"><a class="link-underline-light"
+                                    routerLink="/car/add-car/step4">Step 3: Finish</a></span>
+    </div>
+  </div>
+
+  <div class="row border p ">
+    <div class="col-6 p-5 border-end">
+      <div>
+        <div class="imgBn"><img src="assets/banner/banner1.jpeg"></div>
+        <h4 class="fw-bold">Nissan Navara E 2017</h4>
+        <p class="text-muted">Ratings: ★★★☆☆</p>
+        <p class="text-muted">Price: 900k/day</p>
+        <p class="text-muted">Location: Cầu Giấy, Hanoi</p>
+        <p class="text-muted">Status: Available</p>
+      </div>
+    </div>
+    <div class="col-6 p-5">
+      <h3 class="h6 fw-semibold mb-2">Booking Summary</h3>
+      <p class="text-muted">Number of days: <span class="fw-bold">15</span></p>
+      <p class="text-muted">Price per day: <span class="fw-bold">900,000 VND</span></p>
+      <p class="text-muted">Total: <span class="fw-bold">13,500,000 VND</span></p>
+      <p class="text-muted">Deposit: <span class="fw-bold">15,000,000 VND</span></p>
+      <h3 class="h6 fw-semibold mt-4 mb-2">Renter's Information</h3>
+
+    </div>
+  </div>
+
+
+  <div class="row border">
+    <div class="p-4 bg-card text-foreground rounded-lg shadow-md">
+      <h6 class="text-lg font-semibold mb-4">Please select your payment method</h6>
+      <div class="mb-5">
+        <label class="flex items-center">
+          <input type="radio" name="payment-method" value="wallet" class="m-2 mb-3" />
+          <span>My wallet</span>
+        </label>
+        <p class="text-muted-foreground ms-5 ps-5">Current balance: <span class="text-danger">20,000,000 VND</span></p>
+        <p class="text-muted-foreground ms-5 ps-5">Please go to My wallet to pop-up and try again </p>
+      </div>
+      <div class="mb-5">
+        <label class="flex items-center">
+          <input type="radio" name="payment-method" value="cash" class="m-2 mb-3" />
+          <span>Cash</span>
+        </label>
+        <p class="text-muted-foreground ms-5 ps-5">Our operator will contact you for further instructions</p>
+      </div>
+      <div class="mb-5">
+        <label class="flex items-center">
+          <input type="radio" name="payment-method" value="bank-transfer" class="m-2 mb-3" />
+          <span>Bank transfer</span>
+        </label>
+        <p class="text-muted-foreground ms-5 ps-5">Our operator will contact you for further instructions</p>
+      </div>
+      <div class="d-flex justify-content-center ">
+        <button type="button" class="btn btn-light mx-4 border">Cancel</button>
+        <button type="button" class="btn btn-info">Confirm payment</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<app-footer></app-footer>

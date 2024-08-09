@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+<div class="container-fluid bg-light">
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="border rounded bg-white">
+    <h4 class="text-center m-4 text-danger">Register</h4>
+    <div class="col-auto m-4">
+      <input formControlName="name" class="form-control" type="text" id="fullName" placeholder="Your Name">
+    </div>
+    <div class="col-auto m-4">
+      <input formControlName="email" class="form-control" type="email" id="email" placeholder="Email Address">
+    </div>
+    <div class="col-auto m-4">
+      <input formControlName="phone" class="form-control" type="text" id="phoneNumber" placeholder="Phone Number">
+    </div>
+    <div class="col-auto m-4">
+      <input formControlName="password" class="form-control" type="password" id="password" placeholder="Password">
+    </div>
+    <div class="col-auto m-4">
+      <input formControlName="confirmPassword" class="form-control" type="password" id="confirmPassword" placeholder="Confirm Password">
+    </div>
+    <div class="col-auto m-4 form-check d-flex justify-content-between">
+      <div>
+        <input class="form-check-input" type="radio" id="check1" formControlName="role" value="ROLE_CUSTOMER" name="role">
+        <label class="form-check-label" for="check1">
+          I want to rent a car
+        </label>
+      </div>
+      <div>
+        <input class="form-check-input" type="radio" id="check2" formControlName="role" value="ROLE_CAR_OWNER" name="role">
+        <label class="form-check-label" for="check2">
+          I am a car owner
+        </label>
+      </div>
+    </div>
+    <div class="form-check m-4">
+      <input class="form-check-input" type="checkbox" id="terms" formControlName="terms">
+      <label class="form-check-label" for="terms">
+        By signing up, you agree to the Terms of Service and Privacy Policy
+      </label>
+      <div *ngIf="signupForm.get('terms')?.touched && !signupForm.get('terms')?.value" class="text-danger">
+        You must agree to the terms to proceed.
+      </div>
+    </div>
+    <div class="d-grid gap col-auto m-4">
+      <button class="btn btn-success" type="submit">Register</button>
+    </div>
+    <div class="col-auto m-4">
+      <p class="text-start">Already have a Xcar Rental account? <a routerLink="/account/login">Login</a></p>
+    </div>
+    <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+    <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+  </form>
+</div>
+<app-footer></app-footer>

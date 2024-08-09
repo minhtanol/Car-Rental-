@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<div class="container-fluid bg-light">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-control bg-white border rounded  shadow p-3 mb-5 bg-body-tertiary">
+    <h4 class="text-center m-4 text-danger">Login</h4>
+    <div class="m-3">
+      <label for="email" class="form-label">Email address</label>
+      <input #email type="email" formControlName="username" class="form-control" id="email" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="m-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" formControlName="password" class="form-control" id="password">
+    </div>
+
+    <div class="m-3">
+      <a [routerLink]="['/account/forgot-password']" [queryParams]="{ email: email?.value }" class="forgot-password">Forgot Password?</a>
+    </div>
+    <div class="d-grid gap col-auto m-4">
+      <button class="btn btn-success" type="submit">Login</button>
+    </div>
+    <div class="m-3">
+      <p class="text-center">Don't have an account? <a routerLink="/account/signup">Sign up</a></p>
+    </div>
+  </form>
+</div>
+<app-footer></app-footer>

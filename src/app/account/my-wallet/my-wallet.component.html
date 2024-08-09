@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="mt-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Booking</li>
+    </ol>
+  </div>
+
+  <h4> My Wallet</h4>
+  <div class="row my-5">
+    <div class="col-6 "><h6>Your current balance: </h6></div>
+    <div class="col-6 text-right">
+      <button class="btn btn-primary px-4 mx-5">Withdraw</button>
+      <button class="btn btn-success px-4">Top-up</button>
+    </div>
+    <h6 class="text-success">20.000.000 VND</h6>
+    <h6>Transactions</h6>
+    <div class="col-6">
+      <div class="col-auto">
+        <label for="dateFrom" class="col-form-label">From</label>
+      </div>
+      <div class="col-auto px-5">
+        <input type="date" id="dateFrom" class="form-control">
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="col-auto">
+      <label for="dateTo" class="col-form-label">To</label>
+    </div>
+      <div class="col-auto px-5">
+        <input type="date" id="dateTo" class="form-control">
+      </div></div>
+  </div>
+
+
+
+
+</div>
+
+<app-footer></app-footer>

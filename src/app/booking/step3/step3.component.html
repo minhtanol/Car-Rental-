@@ -1,0 +1,37 @@
+<app-navbar></app-navbar>
+
+
+<div class="container">
+  <div class="step-container m-5 p-3">
+    <div class="step step-active">
+      <span class="step-content"><a class="link-underline-light"
+                                    routerLink="/booking/step1">Step 1: Basic</a></span>
+    </div>
+    <div class="step step-inactive">
+      <span class="step-content"><a class="link-underline-light"
+                                    routerLink="/booking/step2">Step 2: Details</a></span>
+    </div>
+
+    <div class="step step-inactive">
+      <span class="step-content"><a class="link-underline-light"
+                                    routerLink="/booking/step3">Step 3: Finish</a></span>
+    </div>
+  </div>
+
+  <div class="bg-card text-card-foreground p-6 rounded-lg shadow-md">
+    <p class="text-muted-foreground mb-4">You’ve successfully booked <strong>Nissan Navara El 2017</strong> from <strong>13/02/2022 - 12:00 PM</strong> to <strong>23/02/2022 - 14:00 PM</strong>.</p>
+    <p class="text-muted-foreground mb-4">Your booking number is: <strong>012345</strong></p>
+    <p class="text-muted-foreground">Our operator will contact you with further guidance about pickup.</p>
+  </div>
+
+
+  <div class="d-flex justify-content-center ">
+    <button type="button" class="btn btn-light mx-4 border">Go to homepage</button>
+    <button type="button" class="btn btn-light mx-4 border">Book another car</button>
+    <button type="button" class="btn btn-info">View Booking</button>
+  </div>
+
+</div>
+
+
+<app-footer></app-footer>

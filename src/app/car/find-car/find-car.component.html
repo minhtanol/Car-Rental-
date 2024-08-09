@@ -1,0 +1,62 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row bg-dark text-light">
+    <div class="col-6">
+      <h2 class="text-2xl font-bold m-4 pt-5">Looking for a vehicle? <br> You’re at the right place.</h2>
+      <p class="m-4">We have a large selection of locally owned cars available for you to choose from. Rental plans are
+        customised to suit your needs.</p>
+      <p class="m-4">With over 300 cars located nationwide we will have something for you.</p>
+    </div>
+    <div class="col-6 bg-secondary">
+      <h3 class="text-xl font-semibold m-4 pt-4">Find the ideal car rental for your trip</h3>
+
+      <form>
+        <div class="m-4 row">
+            <h6>PICK UP LOCATION</h6>
+          <div class="col">
+            <div class="custom-wrapper-example" matAutocompleteOrigin #origin="matAutocompleteOrigin">
+              <input class="form-control" id="pickUpLocation" placeholder="Choose your location"
+                     #address
+                     matInput
+                     [matAutocomplete]="auto"
+                     [matAutocompleteConnectedTo]="origin"
+                     (input)="changeList($event)">
+            </div>
+
+            <mat-autocomplete requireSelection autoActiveFirstOption #auto="matAutocomplete">
+              @for (option of options; track option) {
+                <mat-option [value]="option">{{ option }}</mat-option>
+              }
+            </mat-autocomplete>
+<!--            <input type="text" class="form-control" id="pickUpLocation">-->
+          </div>
+        </div>
+        <div class="m-4 row">
+          <h6>PICK-UP DATE AND TIME</h6>
+          <div class="col-6">
+            <input type="text" id="drop off-date" placeholder="DD/MM/YYYY" class="form-control"/>
+          </div>
+          <div class="col-6">
+            <input type="text" id="drop off-time" placeholder="HH:MM" class="form-control"/>
+          </div>
+        </div>
+        <div class="m-4 row">
+          <h6>DROP-OFF DATE AND TIME</h6>
+          <div class="col-6">
+            <input type="text" id="pick up-date" placeholder="DD/MM/YYYY" class="form-control"/>
+          </div>
+          <div class="col-6">
+            <input type="text" id="pick up-time" placeholder="HH:MM" class="form-control"/>
+          </div>
+        </div>
+        <div class="d-grid  col-6 mx-auto mb-5">
+          <button class="btn btn-primary" type="button">Search</button>
+
+        </div>
+    </form>
+
+  </div>
+</div>
+</div>
+<app-chill-banner></app-chill-banner>
+<app-footer></app-footer>

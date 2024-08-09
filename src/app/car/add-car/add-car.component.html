@@ -1,0 +1,648 @@
+<app-navbar></app-navbar>
+
+
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{ !isLinear ? 'Enable linear mode' : 'Disable linear mode' }}
+</button>
+<div class="container bg-light">
+  <div class="pt-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Add car</li>
+    </ol>
+  </div>
+  <h2 class="mb-2">Add a Car</h2>
+  <mat-stepper class="bg-body-tertiary" orientation="horizontal" [linear]="isLinear" #stepper>
+    <!--    basic form-------------------------------------------->
+    <!--    basic form-------------------------------------------->
+    <!--    basic form-------------------------------------------->
+    <!--    basic form-------------------------------------------->
+    <!--    basic form-------------------------------------------->
+    <!--    basic form-------------------------------------------->
+    <!--    basic form-------------------------------------------->
+    <mat-step [stepControl]="basic">
+      <ng-template matStepLabel><p class="fs-5 m-0">Basic</p></ng-template>
+      <form [formGroup]="basic" id="addCarForm">
+        <p class="text-danger mb-4">Note: Please check your information carefully; you will not be
+          able to change the basic
+          details of your car, which is based on the registration information.</p>
+        <div class="row g-4 mb-4">
+          <div class="col-6">
+            <label for="license-plate" class="form-label">License Plate:</label>
+            <input type="text" class="form-control" id="license-plate" formControlName="licensePlate" required
+            [ngClass]="{'is-invalid': basic.get('licensePlate')?.invalid && (basic.get('licensePlate')?.dirty || basic.get('licensePlate')?.touched || validateBasic)}" />
+            @if(basic.get('licensePlate')?.invalid && (basic.get('licensePlate')?.dirty || basic.get('licensePlate')?.touched)){
+              <div class="invalid-feedback">
+                @if(basic.get('licensePlate')?.errors?.['required']){
+                  <small>License Plate is required.</small>
+                }
+              </div>
+            }
+          </div>
+          <div class="col-6">
+            <label for="color" class="form-label">Color:</label>
+            <select class="form-select" id="color" formControlName="color" required
+                    [ngClass]="{'is-invalid': basic.get('color')?.invalid && (basic.get('color')?.dirty || basic.get('licensePlate')?.touched || validateBasic)}">
+
+              <option *ngFor="let color of colors" [ngValue]="color.toUpperCase()">{{ color }}</option>
+            </select>
+            @if(basic.get('color')?.invalid && (basic.get('color')?.dirty || basic.get('color')?.touched)){
+              <div class="invalid-feedback">
+                @if(basic.get('color')?.errors?.['required']){
+                  <small>Color is required.</small>
+                }
+              </div>
+            }
+          </div>
+          <div class="form-group col-6">
+            <label for="brandName" class="form-label">Brand Name:</label>
+            <select #brand class="form-select" id="brandName" formControlName="brandName"
+                    (change)="onBrand($event)"
+                    [ngClass]="{'is-invalid': basic.get('brandName')?.invalid && (basic.get('brandName')?.dirty || basic.get('brandName')?.touched || validateBasic)}" >
+              <option value="">Select Brand</option>
+              <option *ngFor="let brand of brands" [attr.data-brand-id]="brand.brandId"
+                      [value]="brand.brandName">{{ brand.brandName }}
+              </option>
+            </select>
+            @if(basic.get('brandName')?.invalid && (basic.get('brandName')?.dirty || basic.get('brandName')?.touched)){
+              <div class="invalid-feedback">
+                @if(basic.get('brandName')?.errors?.['required']){
+                  <small>Brand name is required.</small>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="form-group col-6">
+            <label for="model" class="form-label">Model:</label>
+            <select #model class="form-select" id="model" formControlName="model"
+                    [ngClass]="{'is-invalid': basic.get('model')?.invalid && (basic.get('model')?.dirty || basic.get('model')?.touched || validateBasic)}" >
+              <option value="">Select Model</option>
+              <option *ngFor="let model of models" [value]="model.modelName">{{ model.modelName }}
+              </option>
+            </select>
+            @if(basic.get('model')?.invalid && (basic.get('model')?.dirty || basic.get('model')?.touched)){
+              <div class="invalid-feedback">
+                @if(basic.get('model')?.errors?.['required']){
+                  <small>Model is required.</small>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="production-year" class="form-label">Production Year:</label>
+            <input #year type="number" class="form-control" id="production-year"
+                   formControlName="productionYear" required
+                   [ngClass]="{'is-invalid': basic.get('productionYear')?.invalid && (basic.get('productionYear')?.dirty || basic.get('productionYear')?.touched || validateBasic)}" />
+            @if(basic.get('productionYear')?.invalid && (basic.get('productionYear')?.dirty || basic.get('productionYear')?.touched)){
+              <div class="invalid-feedback">
+                @if (basic.get('productionYear')?.errors?.['required']){
+                  <small>Production year is required.</small>
+                }
+                @else if (basic.get('productionYear')?.errors?.['min']){
+                  <small>Production year must be at least 1950.</small>
+                }
+                @else if (basic.get('productionYear')?.errors?.['max']){
+                  <small>Production year must be less than or equal to the current year.</small>
+                }
+              </div>
+            }
+
+
+          </div>
+          <div class="col-md-6">
+            <label for="seats" class="form-label">No. of Seats:</label>
+            <input type="number" class="form-control" id="seats" formControlName="seats" required
+                   [ngClass]="{'is-invalid': basic.get('seats')?.invalid && (basic.get('seats')?.dirty || basic.get('seats')?.touched || validateBasic)}" />
+            @if(basic.get('seats')?.invalid && (basic.get('seats')?.dirty || basic.get('seats')?.touched)){
+              <div class="invalid-feedback">
+                @if (basic.get('seats')?.errors?.['required']){
+                  <small>Production year is required.</small>
+                }
+                @else if (basic.get('seats')?.errors?.['min']){
+                  <small>Production year must be at least 1.</small>
+                }
+                @else if (basic.get('seats')?.errors?.['max']){
+                  <small>Production year must be less than or equal to the current 60.</small>
+                }
+              </div>
+            }
+          </div>
+          <div class="col-md-6">
+            <label for="transmission" class="form-label">Transmission:</label>
+            <select class="form-select" id="transmission" formControlName="transmission" required
+                    [ngClass]="{'is-invalid': basic.get('transmission')?.invalid && (basic.get('transmission')?.dirty || basic.get('transmission')?.touched || validateBasic)}">
+              <option value="automatic">Automatic</option>
+              <option value="manual">Manual</option>
+            </select>
+            @if(basic.get('transmission')?.invalid && (basic.get('transmission')?.dirty || basic.get('transmission')?.touched)){
+              <div class="invalid-feedback">
+                @if(basic.get('transmission')?.errors?.['required']){
+                  <small>Transmission type is required.</small>
+                }
+              </div>
+            }
+          </div>
+          <div class="col-md-6">
+            <label for="fuel" class="form-label">Fuel:</label>
+            <select class="form-select" id="fuel" formControlName="fuel" required
+                    [ngClass]="{'is-invalid': basic.get('fuel')?.invalid && (basic.get('fuel')?.dirty || basic.get('fuel')?.touched || validateBasic)} ">
+              <option value="gasoline">Gasoline</option>
+              <option value="diesel">Diesel</option>
+            </select>
+            @if(basic.get('fuel')?.invalid && (basic.get('fuel')?.dirty || basic.get('fuel')?.touched)){
+              <div class="invalid-feedback">
+                @if(basic.get('fuel')?.errors?.['required']){
+                  <small>Fuel type is required.</small>
+                }
+              </div>
+            }
+          </div>
+        </div>
+        <!--        ----------------file input section-------------------->
+        <!--        ----------------file input section-------------------->
+        <!--        ----------------file input section-------------------->
+        <!--        ----------------file input section-------------------->
+        <!--        ----------------file input section-------------------->
+        <!--        ----------------file input section-------------------->
+        <h3 class="h4 mb-3">Documents</h3>
+        <div class="row mb-3" formGroupName="basicFiles">
+          <div class="col-4 text-center">
+            <p class="mb-4"><strong>Registration Paper:</strong></p>
+            @if(basic.get('basicFiles.registration')?.invalid && validateBasic) {
+                  <small class="text-danger">This file is required.</small>
+            }
+            <div class="position-relative border border-dashed rounded m-auto w-50 py-4">
+              <mat-icon aria-hidden="false" fontIcon="cancel"
+                        class="position-absolute top-0 end-0 hover" (click)="clearFile($event)">
+              </mat-icon>
+              <label class="hover d-block" for="registration" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                <i class="fa-solid fa-upload"></i>
+                <p>Drag and drop<br/>OR<br/></p>
+                <p class="text-primary file-name" title="Choose a file">Select file</p>
+                <input type="file" id="registration" hidden name="registration" formControlName="registration"
+                       accept=".docx,.doc,.pdf,.jpg,.jpeg,.png" (change)="onFileChange($event)">
+              </label>
+            </div>
+          </div>
+          <div class="col-4 text-center">
+            <p class="mb-4"><strong>Certificate of Inspection:</strong></p>
+            @if(basic.get('basicFiles.certificateOfInspection')?.invalid && validateBasic) {
+              <small class="text-danger">This file is required.</small>
+            }
+            <div class="position-relative border border-dashed rounded m-auto w-50 py-4">
+              <mat-icon aria-hidden="false" fontIcon="cancel"
+                        class="position-absolute top-0 end-0 hover" (click)="clearFile($event)">
+              </mat-icon>
+              <label class="hover d-block" for="certificateOfInspection" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                <i class="fa-solid fa-upload"></i>
+                <p>Drag and drop<br/>OR<br/></p>
+                <p class="text-primary file-name" title="Choose a file">Select file</p>
+                <input type="file" id="certificateOfInspection" hidden name="certificateOfInspection" formControlName="certificateOfInspection"
+                       accept=".docx,.doc,.pdf,.jpg,.jpeg,.png" (change)="onFileChange($event)">
+              </label>
+            </div>
+          </div>
+          <div class="col-4 text-center">
+            <p class="mb-4"><strong>Insurance:</strong></p>
+            @if(basic.get('basicFiles.insurance')?.invalid && validateBasic) {
+              <small class="text-danger">This file is required.</small>
+            }
+            <div class="position-relative border border-dashed rounded m-auto w-50 py-4">
+              <mat-icon aria-hidden="false" fontIcon="cancel"
+                        class="position-absolute top-0 end-0 hover" (click)="clearFile($event)">
+              </mat-icon>
+              <label class="hover d-block" for="insurance" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                <i class="fa-solid fa-upload"></i>
+                <p>Drag and drop<br/>OR<br/></p>
+                <p class="text-primary file-name" title="Choose a file">Select file</p>
+                <input type="file" id="insurance" hidden name="insurance" formControlName="insurance"
+                       accept=".docx,.doc,.pdf,.jpg,.jpeg,.png" (change)="onFileChange($event)">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-muted mb-1">File types: doc, pdf, jpg, jpeg, png</p>
+        <div class="d-flex justify-content-center mb-5">
+          <button mat-button mat-stroked-button type="reset" class="mx-3 px-5">Cancel</button>
+          <button mat-button mat-flat-button matStepperNext type="submit" (click)="validBasic()" class="px-5">Next</button>
+        </div>
+
+      </form>
+    </mat-step>
+
+    <!--    details form-------------------------------------------->
+    <!--    details form-------------------------------------------->
+    <!--    details form-------------------------------------------->
+    <!--    details form-------------------------------------------->
+    <!--    details form-------------------------------------------->
+    <!--    details form-------------------------------------------->
+    <!--    details form-------------------------------------------->
+    <mat-step [stepControl]="details">
+      <ng-template matStepLabel><p class="fs-5 m-0">Details</p></ng-template>
+      <form [formGroup]="details">
+        <div class="row mb-4">
+          <div class="col-6">
+            <label for="mileage" class="form-label">Mileage:</label>
+            <input type="number" id="mileage" class="form-control" placeholder="mileage" formControlName="mileage" required
+                   [ngClass]="{'is-invalid': details.get('mileage')?.invalid && (details.get('mileage')?.dirty || details.get('mileage')?.touched || validateDetail)}" />
+            @if(details.get('mileage')?.invalid && (details.get('mileage')?.dirty || details.get('mileage')?.touched)){
+              <div class="invalid-feedback">
+                @if(details.get('mileage')?.errors?.['required']){
+                  <small>Mileage is required.</small>
+                } @else if (details.get('mileage')?.errors?.['min']){
+                  <small>Mileage must greater than 0.</small>
+                }
+              </div>
+            }
+          </div>
+          <div class="col-6">
+            <label for="fuel-consumption" class="form-label">Fuel consumption:</label>
+            <div class="input-group">
+              <input type="number" id="fuel-consumption" class="form-control" formControlName="fuelConsumption"
+                     [ngClass]="{'is-invalid': details.get('fuelConsumption')?.invalid && (details.get('fuelConsumption')?.dirty || details.get('fuelConsumption')?.touched || validateDetail)}" />
+              <span class="input-group-text">liter/100 km</span>
+              @if(details.get('fuelConsumption')?.invalid && (details.get('fuelConsumption')?.dirty || details.get('fuelConsumption')?.touched)){
+                <div class="invalid-feedback">
+                  @if(details.get('fuelConsumption')?.errors?.['required']){
+                    <small>Fuel consumption is required.</small>
+                  } @else if (details.get('fuelConsumption')?.errors?.['min']){
+                    <small>Fuel consumption must greater than 0.</small>
+                  }
+                </div>
+              }
+            </div>
+
+          </div>
+        </div>
+          <div class="row mb-4">
+            <div class="col-6">
+              <p>Address</p>
+              <div class="form-group mb-4">
+                <select #province class="form-select" id="provinceName" formControlName="provinceName"
+                        (change)="onProvinceChange($event)"
+                        [ngClass]="{'is-invalid': details.get('provinceName')?.invalid && (details.get('provinceName')?.dirty || details.get('provinceName')?.touched || validateDetail)}">
+                  <option value="">City/Province</option>
+                  <option *ngFor="let province of provinces"
+                          [attr.data-province-code]="province.provinceCode"
+                          [value]="province.provinceName">{{ province.provinceName }}
+                  </option>
+                </select>
+                @if(details.get('provinceName')?.errors?.['required']){
+                  <small class="invalid-feedback">Province name is required.</small>
+                }
+              </div>
+
+              <div class="form-group mb-4">
+                <select #district class="form-select" id="districtName" formControlName="districtName"
+                        (change)="onDistrictChange($event)"
+                        [ngClass]="{'is-invalid': details.get('districtName')?.invalid && (details.get('districtName')?.dirty || details.get('districtName')?.touched || validateDetail)}">
+                  <option value="">District</option>
+                  <option *ngFor="let district of districts"
+                          [attr.data-district-code]="district.districtCode"
+                          [value]="district.districtName">{{ district.districtName }}
+                  </option>
+                </select>
+                @if(details.get('districtName')?.errors?.['required']){
+                  <small class="invalid-feedback">District name is required.</small>
+                }
+              </div>
+
+              <div class="form-group mb-4">
+                <select class="form-select" id="wardName" formControlName="wardName"
+                        [ngClass]="{'is-invalid': details.get('wardName')?.invalid && (details.get('wardName')?.dirty || details.get('wardName')?.touched || validateDetail)}">
+                  <option value="">Ward</option>
+                  <option *ngFor="let ward of wards"
+                          [value]="ward.wardName">{{ ward.wardName }}
+                  </option>
+                </select>
+                @if(details.get('wardName')?.errors?.['required']){
+                  <small class="invalid-feedback">Ward name is required.</small>
+                }
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" id="streetName" formControlName="streetName"
+                       required placeholder="Street"
+                       [ngClass]="{'is-invalid': details.get('streetName')?.invalid && (details.get('streetName')?.dirty || details.get('streetName')?.touched || validateDetail)}"/>
+                @if(details.get('streetName')?.errors?.['required']){
+                  <small class="invalid-feedback">Street name is required.</small>
+                }
+              </div>
+
+            </div>
+            <div class="col-6">
+              <label for="description" class="form-label">Description:</label>
+              <textarea id="description" class="form-control " formControlName="description"
+                        placeholder="Description of your vehicle" rows="9"></textarea>
+            </div>
+          </div>
+
+          <h6>Additional functions:</h6>
+          <div class="row justify-content-evenly mb-4" formGroupName="functions">
+            <div class="col-3 border d-grid justify-content-center rounded p-3">
+              <div class="form-check mb-2">
+                <input type="checkbox" id="bluetooth" class="form-check-input" formControlName="BLUETOOTH"/>
+                <label for="bluetooth" class="form-check-label">Bluetooth</label>
+              </div>
+              <div class="form-check mb-2">
+                <input type="checkbox" id="gps" class="form-check-input" formControlName="GPS"/>
+                <label for="gps" class="form-check-label">GPS</label>
+              </div>
+              <div class="form-check mb-2">
+                <input type="checkbox" id="camera" class="form-check-input" formControlName="CAMERA"/>
+                <label for="camera" class="form-check-label">Camera</label>
+              </div>
+            </div>
+            <div class="col-3 border d-grid justify-content-center rounded p-3">
+              <div class="form-check mb-2">
+                <input type="checkbox" id="sunroof" class="form-check-input" formControlName="SUN_ROOF"/>
+                <label for="sunroof" class="form-check-label">Sun roof</label>
+              </div>
+              <div class="form-check mb-2">
+                <input type="checkbox" id="child-lock" class="form-check-input" formControlName="CHILD_LOCK"/>
+                <label for="child-lock" class="form-check-label">Child lock</label>
+              </div>
+              <div class="form-check mb-2">
+                <input type="checkbox" id="child-seat" class="form-check-input" formControlName="CHILD_SEAT"/>
+                <label for="child-seat" class="form-check-label">Child seat</label>
+              </div>
+            </div>
+            <div class="col-3 border d-grid justify-content-center rounded p-3">
+              <div class="form-check mb-2">
+                <input type="checkbox" id="dvd" class="form-check-input" formControlName="DVD"/>
+                <label for="dvd" class="form-check-label">DVD</label>
+              </div>
+              <div class="form-check mb-2">
+                <input type="checkbox" id="usb" class="form-check-input" formControlName="USB"/>
+                <label for="usb" class="form-check-label">USB</label>
+              </div>
+            </div>
+          </div>
+
+          <h6 class="mb-3">Images</h6>
+        <div formGroupName="detailFiles">
+          <div class="row mb-4">
+            <div class="col-5 text-center mx-5">
+              <p class="mb-2"><strong>Front</strong></p>
+              @if(details.get('detailFiles.frontImage')?.invalid && validateDetail) {
+                <small class="text-danger">This file is required.</small>
+              }
+              <div class="position-relative border border-dashed rounded m-auto w-100 py-5">
+                <mat-icon aria-hidden="false" fontIcon="cancel"
+                          class="position-absolute top-0 end-0 hover bg-light rounded" (click)="clearFile($event)">
+                </mat-icon>
+                <label class="hover d-block" for="frontImage" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                  <i class="fa-solid fa-upload"></i>
+                  <p>Drag and drop<br/>OR<br/></p>
+                  <p class="text-primary file-name" title="Choose a file">Select file</p>
+                  <input type="file" hidden id="frontImage" name="frontImage" formControlName="frontImage"
+                         accept=".gif,.jpg,.jpeg,.png" (change)="onFileChange($event)">
+                </label>
+                @if (thumbnail['frontImage']){
+                  <div class="thumbnail-container">
+                    <div class="thumbnail" [ngStyle]="{'background-image': 'url(' + thumbnail['frontImage'] + ')'}"></div>
+                  </div>
+                }
+              </div>
+
+            </div>
+            <div class="col-5 text-center mx-5">
+              <p class="mb-2"><strong>Back</strong></p>
+              @if(details.get('detailFiles.backImage')?.invalid && validateDetail) {
+                <small class="text-danger">This file is required.</small>
+              }
+              <div class="position-relative border border-dashed rounded m-auto w-100 py-5">
+                <mat-icon aria-hidden="false" fontIcon="cancel"
+                          class="position-absolute top-0 end-0 hover" (click)="clearFile($event)">
+                </mat-icon>
+                <label class="hover d-block" for="backImage" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                  <i class="fa-solid fa-upload"></i>
+                  <p>Drag and drop<br/>OR<br/></p>
+                  <p class="text-primary file-name" title="Choose a file">Select file</p>
+                  <input type="file" id="backImage" hidden name="backImage" formControlName="backImage"
+                         accept=".gif,.jpg,.jpeg,.png" (change)="onFileChange($event)">
+                </label>
+                @if (thumbnail['backImage']){
+                  <div class="thumbnail-container">
+                    <div class="thumbnail" [ngStyle]="{'background-image': 'url(' + thumbnail['backImage'] + ')'}"></div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+              <div class="col-5 text-center mx-5">
+                <p class="mb-2"><strong>Left</strong></p>
+                @if(details.get('detailFiles.leftImage')?.invalid && validateDetail) {
+                  <small class="text-danger">This file is required.</small>
+                }
+                <div class="position-relative border border-dashed rounded m-auto w-100 py-5">
+                  <mat-icon aria-hidden="false" fontIcon="cancel"
+                            class="position-absolute top-0 end-0 hover bg-light rounded" (click)="clearFile($event)">
+                  </mat-icon>
+                  <label class="hover d-block" for="leftImage" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                    <i class="fa-solid fa-upload"></i>
+                    <p>Drag and drop<br/>OR<br/></p>
+                    <p class="text-primary file-name" title="Choose a file">Select file</p>
+                    <input type="file" hidden id="leftImage" name="leftImage" formControlName="leftImage"
+                           accept=".gif,.jpg,.jpeg,.png" (change)="onFileChange($event)">
+                  </label>
+                  @if (thumbnail['leftImage']){
+                    <div class="thumbnail-container">
+                      <div class="thumbnail" [ngStyle]="{'background-image': 'url(' + thumbnail['leftImage'] + ')'}"></div>
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="col-5 text-center mx-5">
+                <p class="mb-2"><strong>Right</strong></p>
+                @if(details.get('detailFiles.rightImage')?.invalid && validateDetail) {
+                  <small class="text-danger">This file is required.</small>
+                }
+                <div class="position-relative border border-dashed rounded m-auto w-100 py-5">
+                  <mat-icon aria-hidden="false" fontIcon="cancel"
+                            class="position-absolute top-0 end-0 hover" (click)="clearFile($event)">
+                  </mat-icon>
+                  <label class="hover d-block" for="rightImage" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                    <i class="fa-solid fa-upload"></i>
+                    <p>Drag and drop<br/>OR<br/></p>
+                    <p class="text-primary file-name" title="Choose a file">Select file</p>
+                    <input type="file" id="rightImage" hidden name="rightImage" formControlName="rightImage"
+                           accept=".gif,.jpg,.jpeg,.png" (change)="onFileChange($event)">
+                  </label>
+                  @if (thumbnail['rightImage']){
+                    <div class="thumbnail-container">
+                      <div class="thumbnail" [ngStyle]="{'background-image': 'url(' + thumbnail['rightImage'] + ')'}"></div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+        </div>
+          <p class="text-muted-foreground mt-2">Please include all 4 images of your vehicle<br/>File
+            types: .jpg, .jpeg,
+            .png,
+            .gif</p>
+
+        <div class="d-flex justify-content-center mb-5">
+          <button mat-button mat-stroked-button matStepperPrevious class="mx-3 px-5">Back</button>
+          <button mat-button mat-flat-button matStepperNext type="submit" (click)="validDetail()" class="px-5">Next</button>
+        </div>
+
+      </form>
+    </mat-step>
+
+
+    <!--    pricing form-------------------------------------------->
+    <!--    pricing form-------------------------------------------->
+    <!--    pricing form-------------------------------------------->
+    <!--    pricing form-------------------------------------------->
+    <!--    pricing form-------------------------------------------->
+    <!--    pricing form-------------------------------------------->
+    <!--    pricing form-------------------------------------------->
+    <!--    pricing form-------------------------------------------->
+    <mat-step [stepControl]="pricing">
+      <ng-template matStepLabel><p class="fs-5 m-0">Pricing</p></ng-template>
+      <form [formGroup]="pricing">
+
+        <div class="row col-6 align-items-center my-4">
+          <div class="col-5">
+            <label for="basePrice" class="col-form-label">Set base price for your car:</label>
+            </div>
+          <div class="col-7">
+            <div class="input-group">
+              <input #basePrice type="number" id="basePrice" class="form-control" formControlName="basePrice"
+                     [ngClass]="{'is-invalid': pricing.get('basePrice')?.invalid && (pricing.get('basePrice')?.dirty || pricing.get('basePrice')?.touched || validateDetail)}" >
+              <span class="input-group-text">VND/Day</span>
+              @if(pricing.get('basePrice')?.invalid && (pricing.get('basePrice')?.dirty || pricing.get('basePrice')?.touched)){
+                <div class="invalid-feedback">
+                  @if(pricing.get('basePrice')?.errors?.['required']){
+                    <small>Base price is required.</small>
+                  } @else if (pricing.get('basePrice')?.errors?.['min']){
+                    <small>Base price greater than 100,000 VND.</small>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+        <div class="row col-6 align-items-center mb-4">
+          <div class="col-5">
+            <label for="deposit" class="col-form-label">Required deposit:</label>
+          </div>
+          <div class="col-7">
+            <div class="input-group">
+              <input type="number" id="deposit" class="form-control" formControlName="deposit"
+                     [ngClass]="{'is-invalid': pricing.get('deposit')?.invalid && (pricing.get('deposit')?.dirty || pricing.get('deposit')?.touched || validateDetail)}" >
+
+              <span class="input-group-text">VND/Day</span>
+              @if(pricing.get('deposit')?.invalid && (pricing.get('deposit')?.dirty || pricing.get('deposit')?.touched)){
+                <div class="invalid-feedback">
+                  @if(pricing.get('deposit')?.errors?.['required']){
+                    <small>Deposit is required.</small>
+                  } @else if (pricing.get('deposit')?.errors?.['min']){
+                    <small>Required deposit is greater than 100,000 VND.</small>
+                  }
+                  </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6" formGroupName="terms">
+          <legend class="col-form-label text-muted-foreground mb-3">Terms of use:</legend>
+          <div class="row mb-5">
+            <div class="form-check mb-2 col">
+              <input #noSmokingCheck class="form-check-input" type="checkbox" id="no-smoking">
+              <input class="form-control" type="text" hidden formControlName="noSmoking">
+              <label class="form-check-label text-muted-foreground" for="no-smoking">No
+                smoking</label>
+            </div>
+            <div class="form-check mb-2 col">
+              <input #noFoodCheck class="form-check-input" type="checkbox" id="no-food" >
+              <input class="form-control" type="text" hidden formControlName="noFood">
+              <label class="form-check-label text-muted-foreground" for="no-food">No food in
+                car</label>
+            </div>
+          </div>
+          <div class="row mb-5">
+            <div class="form-check mb-2 col">
+              <input #noPetCheck class="form-check-input" type="checkbox" id="no-pet" >
+              <input class="form-control" type="text" hidden formControlName="noPet">
+              <label class="form-check-label text-muted-foreground" for="no-pet">No pet</label>
+            </div>
+            <div class="form-check mb-2 col">
+              <input #otherCheck class="form-check-input" type="checkbox" id="other">
+              <label class="form-check-label text-muted-foreground" for="other">Other</label>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col"></div>
+            <div class="col mb-5">
+              <label for="specify" class="form-label text-muted-foreground mb-3">Please specify:</label>
+              <textarea id="specify" class="form-control border-border" formControlName="other" rows="3"
+                        placeholder="Enter details"></textarea>
+            </div>
+          </div>
+        </div>
+          <div class="d-flex justify-content-center mb-5">
+            <button mat-button mat-stroked-button matStepperPrevious class="mx-3 px-5">Back</button>
+            <button mat-button mat-flat-button matStepperNext type="submit" (click)="validPricing()" class="px-5">Next</button>
+          </div>
+
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel><p class="fs-5 m-0">Finish</p></ng-template>
+
+
+      <h4>Preview</h4>
+      <div class="row">
+        <div class="col-6">
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item">
+                <img [src]="thumbnail['frontImage']" class="d-block w-100" alt="front">
+              </div>
+              <div class="carousel-item">
+                <img [src]="thumbnail['backImage']" class="d-block w-100" alt="front">
+              </div>
+              <div class="carousel-item active">
+                <img [src]="thumbnail['leftImage']" class="d-block w-100" alt="front">
+              </div>
+              <div class="carousel-item active">
+                <img [src]="thumbnail['rightImage']" class="d-block w-100" alt="front">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-6 mb-5">
+          <h3 class="h5 mt-4">{{brand.value+ " " + model.value +" "+ year.value}}</h3>
+          <p class="small">Ratings: <span class="text-warning">★★★★★</span> <br> (No ratings yet)
+          </p>
+          <p class="small">No. of rides: 0</p>
+          <p class="small">{{"Price: "+ parseInt(basePrice.value).toLocaleString('vi-VN') + " VND/Day"}}</p>
+          <p class="small">{{"Location: "+ district.value + ", " +province.value }}</p>
+          <p class="small text-success">Status: Available</p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mb-5">
+        <button mat-button mat-stroked-button (click)="stepper.reset()" class="mx-3 px-5">Reset</button>
+        <button mat-button mat-flat-button (click)="onSubmit()" class="px-5">Save</button>
+      </div>
+
+
+    </mat-step>
+  </mat-stepper>
+</div>
+<app-footer></app-footer>

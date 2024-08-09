@@ -1,0 +1,202 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Booking</li>
+    </ol>
+  </div>
+  <div class="row bg-dark text-white p-5">
+    <h6 class="h5 fw-semibold mb-3">Booking Details</h6>
+    <div class="m-5">
+      <p class="">Pick-up location: Trường Kinh, Cầu Giấy, Hà Nội</p>
+      <p class="">Pick-up date and time: 13/03/2023 - 12:00 PM</p>
+      <p class="">Return date and time: 20/03/2023 - 12:00 PM</p>
+    </div>
+  </div>
+  <div class="step-container m-5 p-3">
+    <div class="step step-active">
+      <span class="step-content"><a class="link-underline-light"
+                                    routerLink="/booking/step1">Step 1: Basic</a></span>
+    </div>
+    <div class="step step-inactive">
+      <span class="step-content"><a class="link-underline-light"
+                                    routerLink="/booking/step2">Step 2: Details</a></span>
+    </div>
+
+    <div class="step step-inactive">
+      <span class="step-content"><a class="link-underline-light"
+                                    routerLink="/booking/step3">Step 3: Finish</a></span>
+    </div>
+  </div>
+
+  <div class="row border mb-5">
+    <div class="col-6 p-3 border-end">
+      <div>
+        <div class="imgBn"><img src="assets/banner/banner1.jpeg"></div>
+        <h4 class="fw-bold">Nissan Navara E 2017</h4>
+        <p class="text-muted">Ratings: ★★★☆☆</p>
+        <p class="text-muted">Price: 900k/day</p>
+        <p class="text-muted">Location: Cầu Giấy, Hanoi</p>
+        <p class="text-muted">Status: Available</p>
+      </div>
+    </div>
+    <div class="col-6 p-3">
+      <h3 class="h6 fw-semibold mb-2">Booking Summary</h3>
+      <p class="text-muted">Number of days: <span class="fw-bold">15</span></p>
+      <p class="text-muted">Price per day: <span class="fw-bold">900,000 VND</span></p>
+      <p class="text-muted">Total: <span class="fw-bold">13,500,000 VND</span></p>
+      <p class="text-muted">Deposit: <span class="fw-bold">15,000,000 VND</span></p>
+      <h3 class="h6 fw-semibold mt-4 mb-2">Renter's Information</h3>
+
+    </div>
+  </div>
+  <form class="form-control" [formGroup]="form">
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label">Full Name *</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="col">
+        <label class="form-label">Date of birth *</label>
+        <input type="date" class="form-control" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label">Phone number *</label>
+        <input type="tel" class="form-control" required>
+      </div>
+      <div class="col">
+        <label class="form-label">Email address *</label>
+        <input type="email" class="form-control" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label">National ID No. *</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="col">
+        <label class="form-label">Driving License *</label>
+        <input type="file" class="form-control" required>
+      </div>
+    </div>
+    <div class="col-6">
+      <label>Address</label>
+      <div class="row" >
+        <div class="form-group col-12 ">
+          <label for="provinceName" class="form-label"></label>
+          <select class="form-select" id="provinceName" formControlName="provinceName" (change)="onProvinceChange($event)">
+            <option value="">City</option>
+            <option *ngFor="let province of provinces" [attr.data-province-code]="province.provinceCode"
+                    [value]="province.provinceName">{{province.provinceName}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group col-12 ">
+          <label for="districtName" class="form-label"></label>
+          <select class="form-select" id="districtName" formControlName="districtName" (change)="onDistrictChange($event)">
+            <option value="">District</option>
+            <option *ngFor="let district of districts" [attr.data-district-code]="district.districtCode"
+                    [value]="district.districtName">{{district.districtName}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group col-12 ">
+          <label for="wardName" class="form-label"></label>
+          <select class="form-select" id="wardName" formControlName="wardName">
+            <option value="">Ward</option>
+            <option *ngFor="let ward of wards"
+                    [value]="ward.wardName">{{ward.wardName}}
+            </option>
+          </select>
+        </div>
+        <div class="col-12 mb-5 ">
+          <label class="form-label" for="streetName"></label>
+          <input class="form-control" type="text" id="streetName" formControlName="streetName" required placeholder="Street"/>
+        </div>
+      </div>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault">
+        Driver's Information
+      </label>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label">Full Name *</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="col">
+        <label class="form-label">Date of birth *</label>
+        <input type="date" class="form-control" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label">Phone number *</label>
+        <input type="tel" class="form-control" required>
+      </div>
+      <div class="col">
+        <label class="form-label">Email address *</label>
+        <input type="email" class="form-control" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label">National ID No. *</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="col">
+        <label class="form-label">Driving License *</label>
+        <input type="file" class="form-control" required>
+      </div>
+    </div>
+    <div class="col-6">
+      <label>Address</label>
+      <div class="row" formGroupName="address">
+        <div class="form-group col-12 ">
+          <label for="provinceName" class="form-label"></label>
+          <select class="form-select" id="provinceName1" formControlName="provinceName" (change)="onProvinceChange($event)">
+            <option value="">City</option>
+            <option *ngFor="let province of provinces" [value]="province.provinceCode">{{ province.provinceName }}</option>
+          </select>
+        </div>
+
+        <div class="form-group col-12 ">
+          <label for="districtName" class="form-label"></label>
+          <select class="form-select" id="districtName1" formControlName="districtName" (change)="onDistrictChange($event)">
+            <option value="">District</option>
+            <option *ngFor="let district of districts" [value]="district.districtCode">{{ district.districtName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group col-12 ">
+          <label for="wardName" class="form-label"></label>
+          <select class="form-select" id="wardName1" formControlName="wardName">
+            <option value="">Ward</option>
+            <option *ngFor="let ward of wards" [value]="ward.wardCode">{{ ward.wardName }}</option>
+          </select>
+        </div>
+        <div class="col-12 mb-5 ">
+          <label class="form-label" for="streetName"></label>
+          <input class="form-control" type="text" id="streetName1" formControlName="streetName" required placeholder="Street"/>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end mt-4 mb-5">
+      <button type="button" class="btn btn-danger px-4 mx-4">Cancel</button>
+      <button type="submit" class="btn btn-primary px-4">Next</button>
+    </div>
+  </form>
+
+</div>
+
+<app-footer></app-footer>
+

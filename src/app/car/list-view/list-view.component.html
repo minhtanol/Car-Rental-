@@ -1,0 +1,74 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row bg-dark text-white">
+    <form>
+      <div class="m-4 row">
+        <h6>PICK UP LOCATION</h6>
+        <div class="col">
+          <div class="custom-wrapper-example" matAutocompleteOrigin #origin="matAutocompleteOrigin">
+            <input class="form-control" id="pickUpLocation" placeholder="Choose your location"
+                   #address
+                   matInput
+                   [matAutocomplete]="auto"
+                   [matAutocompleteConnectedTo]="origin"
+            (input)="changeList($event)">
+          </div>
+
+          <mat-autocomplete requireSelection autoActiveFirstOption #auto="matAutocomplete">
+            @for (option of options; track option) {
+              <mat-option [value]="option">{{ option }}</mat-option>
+            }
+          </mat-autocomplete>
+          <!--          <input type="text" class="form-control" id="pickUpLocation" placeholder="Choose your location">-->
+        </div>
+      </div>
+      <div class="m-4 row">
+        <h6>PICK-UP DATE AND TIME</h6>
+        <div class="col-6">
+          <input type="text" id="drop off-date" placeholder="DD/MM/YYYY" class="form-control"/>
+        </div>
+        <div class="col-6">
+          <input type="text" id="drop off-time" placeholder="HH:MM" class="form-control"/>
+        </div>
+      </div>
+      <div class="m-4 row">
+        <h6>DROP-OFF DATE AND TIME</h6>
+        <div class="col-6">
+          <input type="text" id="pick up-date" placeholder="DD/MM/YYYY" class="form-control"/>
+        </div>
+        <div class="col-6">
+          <input type="text" id="pick up-time" placeholder="HH:MM" class="form-control"/>
+        </div>
+      </div>
+      <div class="d-grid  col-6 mx-auto mb-5">
+        <button class="btn btn-primary" type="button">Searchh</button>
+
+      </div>
+    </form>
+  </div>
+  <div class="border">
+    <h1>Search Results</h1>
+    <p>There're 10 cars that are available for you!</p>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Image</th>
+        <th scope="col">Ratings</th>
+        <th scope="col">No. of Rides</th>
+        <th scope="col">Price</th>
+        <th scope="col">Location</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+<app-footer></app-footer>

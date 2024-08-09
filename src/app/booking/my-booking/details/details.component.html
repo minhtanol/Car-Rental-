@@ -1,0 +1,199 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Library</li>
+      <li class="breadcrumb-item active" aria-current="page">Details</li>
+    </ol>
+  </div>
+
+  <h4>Booking Details</h4>
+
+  <div class="col-12 p-5 border d-flex mb-5">
+    <div class="col-6">
+      <img src="assets/banner/banner2.jpg">
+    </div>
+    <div class="col-6 d-flex ">
+      <div class="col8">
+        <h2 class="text-lg font-semibold">Nissan Navara El 2017</h2>
+        <p class="text-muted-foreground">From: 10/03/2022 - 12:00 PM</p>
+        <p class="text-muted-foreground">To: 23/12/2022 - 14:00 PM</p>
+        <p class="text-muted-foreground">Number of days: <span class="font-semibold">X</span></p>
+        <p class="text-muted-foreground">Base price: <span class="font-semibold">X</span></p>
+        <p class="text-muted-foreground">Total: <span class="font-semibold">X</span></p>
+        <p class="text-muted-foreground">Deposit: <span class="font-semibold">X</span></p>
+        <p class="text-muted-foreground">Booking No.: <span class="font-semibold">0123456</span></p>
+        <p class="text-muted-foreground">Booking status: <span class="text-blue-500">Pending deposit</span></p>
+      </div>
+      <div class="col-4 ">
+        <button class="btn btn-primary mb-2">View details
+        </button>
+        <button class="btn btn-light">Cancel
+          booking
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-bottom border-border mb-4">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active text-primary" routerLink="/account/change-profile">Booking information</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-muted" routerLink="/account/change-password">Car information</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-muted" routerLink="/account/change-password">Payment</a>
+      </li>
+    </ul>
+  </div>
+
+    <h6 >Renter's Information</h6>
+    <form class="form-control p-3">
+      <div class="d-flex justify-content-center mb-5">
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="fullName">Full Name: *</label>
+          <input type="text" id="fullName" class="form-control" required />
+        </div>
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="dob">Date of birth: *</label>
+          <input type="date" id="dob" class="form-control" required />
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mb-5">
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="phoneNumber">Phone Number: *</label>
+          <input type="text" id="phoneNumber" class="form-control" required />
+        </div>
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="email">Email: *</label>
+          <input type="email" id="email" class="form-control" required />
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mb-5">
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="nationalId">National ID No.: *</label>
+          <input type="text" id="nationalId" class="form-control" required />
+        </div>
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="drivingLicense">Driving license:: *</label>
+          <input type="file" id="drivingLicense" class="form-control" required />
+        </div>
+      </div>
+
+
+
+      <div class="col-6 px-5">
+        <label>Address</label>
+        <div class="row" formGroupName="address">
+          <div class="form-group col-12 ">
+            <label for="provinceName" class="form-label"></label>
+            <select class="form-select" id="provinceName" formControlName="provinceName" (change)="onProvinceChange($event)">
+              <option value="">City</option>
+              <option *ngFor="let province of provinces" [value]="province.provinceCode">{{ province.provinceName }}</option>
+            </select>
+          </div>
+
+          <div class="form-group col-12 ">
+            <label for="districtName" class="form-label"></label>
+            <select class="form-select" id="districtName" formControlName="districtName" (change)="onDistrictChange($event)">
+              <option value="">District</option>
+              <option *ngFor="let district of districts" [value]="district.districtCode">{{ district.districtName }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-12 ">
+            <label for="wardName" class="form-label"></label>
+            <select class="form-select" id="wardName" formControlName="wardName">
+              <option value="">Ward</option>
+              <option *ngFor="let ward of wards" [value]="ward.wardCode">{{ ward.wardName }}</option>
+            </select>
+          </div>
+          <div class="col-12 mb-5 ">
+            <label class="form-label" for="streetName" formControlName="streetName"></label>
+            <input class="form-control" type="text" id="streetName" formControlName="streetName" required placeholder="Street"/>
+          </div>
+        </div>
+      </div>
+
+      <h6 class="px-5">Driver's Information</h6>
+      <div class="px-5">
+        <input type="checkbox" id="different-info" class="me-2 mb-5" />
+        <label for="different-info" class="text-sm font-medium text-foreground">Different from renter's information</label>
+      </div>
+
+      <div class="d-flex justify-content-center mb-5">
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="fullName">Full Name: *</label>
+          <input type="text" id="fullName1" class="form-control" required />
+        </div>
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="dob">Date of birth: *</label>
+          <input type="date" id="dob1" class="form-control" required />
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mb-5">
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="phoneNumber">Phone Number: *</label>
+          <input type="text" id="phoneNumber1" class="form-control" required />
+        </div>
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="email">Email: *</label>
+          <input type="email" id="email1" class="form-control" required />
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mb-5">
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="nationalId">National ID No.: *</label>
+          <input type="text" id="nationalId1" class="form-control" required />
+        </div>
+        <div class="mb-4 col-6 px-5">
+          <label class="mb-3" for="drivingLicense">Driving license:: *</label>
+          <input type="file" id="drivingLicense1" class="form-control" required />
+        </div>
+      </div>
+      <div class="col-6 px-5">
+        <label>Address</label>
+        <div class="row" formGroupName="address">
+          <div class="form-group col-12 ">
+            <label for="provinceName" class="form-label"></label>
+            <select class="form-select" id="provinceName1" formControlName="provinceName" (change)="onProvinceChange($event)">
+              <option value="">City</option>
+              <option *ngFor="let province of provinces" [value]="province.provinceCode">{{ province.provinceName }}</option>
+            </select>
+          </div>
+
+          <div class="form-group col-12 ">
+            <label for="districtName" class="form-label"></label>
+            <select class="form-select" id="districtName1" formControlName="districtName" (change)="onDistrictChange($event)">
+              <option value="">District</option>
+              <option *ngFor="let district of districts" [value]="district.districtCode">{{ district.districtName }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-12 ">
+            <label for="wardName" class="form-label"></label>
+            <select class="form-select" id="wardName1" formControlName="wardName">
+              <option value="">Ward</option>
+              <option *ngFor="let ward of wards" [value]="ward.wardCode">{{ ward.wardName }}</option>
+            </select>
+          </div>
+          <div class="col-12 mb-5 ">
+            <label class="form-label" for="streetName" formControlName="streetName"></label>
+            <input class="form-control" type="text" id="streetName1" formControlName="streetName" required placeholder="Street"/>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mb-5">
+        <button type="button" class="btn btn-light border mx-4 px-4">Discard</button>
+        <button type="submit" class="btn btn-primary px-4">Save</button>
+      </div>
+    </form>
+</div>
+
+<app-footer></app-footer>
